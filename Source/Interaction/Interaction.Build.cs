@@ -33,7 +33,8 @@ public class Interaction : ModuleRules
 				"GameplayTasks",
 				"GameplayTags",
 				"ModularGameplay",
-				"EnhancedInput"
+				"EnhancedInput",
+				"Ability"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
