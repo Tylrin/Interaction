@@ -37,8 +37,8 @@ class INTERACTION_API UAT_WaitForTraceInteractable : public UAbilityTask
 		UGameplayAbility* OwningAbility, 
 		FName TaskInstanceName, 
 		FCollisionProfileName TraceProfile, 
-		FVector StartLocation,
-		FVector AimDirection, 
+		//FVector StartLocation,
+		//FVector AimDirection, 
 		float MinRange = 30.0f, 
 		float MaxRange = 200.0f, 
 		float TimerPeriod = 0.1f, 
@@ -48,6 +48,8 @@ class INTERACTION_API UAT_WaitForTraceInteractable : public UAbilityTask
 	virtual void Activate() override;
 
 protected:
+
+	FGameplayAbilityTargetingLocationInfo TDStartLocation;
 
 	float MinRange;
 
@@ -74,10 +76,12 @@ protected:
 	/** Traces as normal, but will manually filter all hit actors */
 	void LineTrace(FHitResult& OutHitResult, const UWorld* World, const FVector& Start, const FVector& End, FName ProfileName, const FCollisionQueryParams Params, bool bLookForInteractableActor) const;
 
-	void AimWithPlayerController(const AActor* InSourceActor, FCollisionQueryParams Params, const FVector& TraceStart, FVector& OutTraceEnd, bool bIgnorePitch = false) const;
+	void AimWithPlayerController(const AActor* InSourceActor, FCollisionQueryParams Params, const FVector TraceStart, FVector OutTraceEnd, bool bIgnorePitch = false) const;
 
 	bool ClipCameraRayToAbilityRange(FVector CameraLocation, FVector CameraDirection, FVector AbilityCenter, float AbilityRange, FVector& ClippedPosition) const;
 
 	UFUNCTION()
-		void PerformTrace();
+	void PerformTrace();
+
+	FGameplayAbilityTargetDataHandle MakeTargetData(const FHitResult& HitResult) const;
 };
